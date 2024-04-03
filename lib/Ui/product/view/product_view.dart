@@ -25,8 +25,19 @@ class _ProductViewState extends State<ProductView> {
           builder: (context, snapshot) {
             List product = snapshot.data?.docs ?? [];
             if (product.isEmpty) {
-              return const Center(
-                child: Text("product is empty"),
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                        height: 150,
+                        width: 150,
+                        child: Image.asset('assets/empty-box.png')),
+                    const Text(
+                      "product is empty",
+                    ),
+                  ],
+                ),
               );
             }
             return ListView.separated(
@@ -48,22 +59,63 @@ class _ProductViewState extends State<ProductView> {
                         color: Colors.black.withOpacity(0.05),
                         borderRadius: BorderRadius.circular(12)),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        Container(
+                            height: 100,
+                            width: 100,
+                            decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('assets/box.png')))),
+                        const SizedBox(
+                          width: 15,
+                        ),
                         Expanded(
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('productName: ${productList.productName}'),
                               Text(
-                                  'measurement: ${productList.measurement.toString()}'),
-                              Text('price: ${productList.price.toString()}'),
+                                'Name: ${productList.productName}',
+                                style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Quantity: ${productList.measurement.toString()}',
+                                style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Price: ${productList.price.toString()}',
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                      DateFormat("dd-MM-yy h:mm a").format(
+                                          productList.createdOn.toDate()),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis)
+                                ],
+                              ),
                             ],
                           ),
                         ),
-                        Text(
-                            '${DateFormat("dd-MM-yyyy h:mm a").format(productList.createdOn.toDate())}'),
                       ],
                     ),
                   ),

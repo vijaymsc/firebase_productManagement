@@ -34,7 +34,6 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
         if (state is FailedState) {
           ScaffoldMessenger.of(context)
@@ -47,103 +46,125 @@ class _RegisterViewState extends State<RegisterView> {
         // if (state is FailedState) {
         //   return Text(state.errorMessage);
         // }
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      CustomTextFormField(
-                          formFieldController: _userEmailController,
-                          hintTextValue: "enter your email",
-                          inputType: TextInputType.emailAddress,
-                          validatorFunc: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "user email not empty...";
-                            } else if (!value.contains("@")) {
-                              return "enter a valid email...";
-                            } else {
-                              return null;
-                            }
-                          }),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      CustomTextFormField(
-                        formFieldController: _userPasswordController,
-                        hintTextValue: "enter your password",
-                        inputType: TextInputType.visiblePassword,
-                        suffixIcon: true,
-                        validatorFunc: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "password not empty...";
-                          } else if (value.length <= 5) {
-                            return "password  should be minimum 6 character...";
-                          } else {
-                            return null;
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      CustomTextFormField(
-                        formFieldController: _userRePasswordController,
-                        hintTextValue: "enter your Re-password",
-                        inputType: TextInputType.visiblePassword,
-                        suffixIcon: true,
-                        validatorFunc: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Re-password not empty...";
-                          } else if (value != _userPasswordController.text) {
-                            return "Re-enter password should be same";
-                          } else {
-                            return null;
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      CustomButton(
-                        btnText: 'Register',
-                        isLoading: state is LoadingState ? true : false,
-                        btnClick: () async {
-                          if (_formKey.currentState!.validate()) {
-                            context.read<AuthBloc>().add(RegisterEvent(
-                                userEmail: _userEmailController.text,
-                                password: _userPasswordController.text));
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+        return Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                      height: 150,
+                      width: 150,
+                      child: Image.asset('assets/splash_scree.png')),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const Text(
+                    "Create your Account",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Form(
+                      key: _formKey,
+                      child: Column(
                         children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                  context, RoutePaths.loginUser);
-                            },
-                            child: const Text(
-                              'Already have account?',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
+                          CustomTextFormField(
+                              formFieldController: _userEmailController,
+                              hintTextValue: "enter your email",
+                              inputType: TextInputType.emailAddress,
+                              validatorFunc: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "user email not empty...";
+                                } else if (!value.contains("@")) {
+                                  return "enter a valid email...";
+                                } else {
+                                  return null;
+                                }
+                              }),
+                          const SizedBox(
+                            height: 20,
                           ),
+                          CustomTextFormField(
+                            formFieldController: _userPasswordController,
+                            hintTextValue: "enter your password",
+                            inputType: TextInputType.visiblePassword,
+                            suffixIcon: true,
+                            validatorFunc: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "password not empty...";
+                              } else if (value.length <= 5) {
+                                return "password  should be minimum 6 character...";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          CustomTextFormField(
+                            formFieldController: _userRePasswordController,
+                            hintTextValue: "enter your Re-password",
+                            inputType: TextInputType.visiblePassword,
+                            suffixIcon: true,
+                            validatorFunc: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Re-password not empty...";
+                              } else if (value !=
+                                  _userPasswordController.text) {
+                                return "Re-enter password should be same";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          CustomButton(
+                            btnText: 'Register',
+                            isLoading: state is LoadingState ? true : false,
+                            btnClick: () async {
+                              if (_formKey.currentState!.validate()) {
+                                context.read<AuthBloc>().add(RegisterEvent(
+                                    userEmail: _userEmailController.text,
+                                    password: _userPasswordController.text));
+                              }
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, RoutePaths.loginUser);
+                                },
+                                child: const Text(
+                                  'Already have account?',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
                         ],
-                      )
-                    ],
-                  )),
-            ],
+                      )),
+                ],
+              ),
+            ),
           ),
         );
       }),

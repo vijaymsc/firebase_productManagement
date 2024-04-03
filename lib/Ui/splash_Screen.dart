@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:product_management/Ui/user_auth/view/setPin_view.dart';
 import 'package:product_management/Ui/user_auth/view/user_login.dart';
 
 import '../Constance/sharedPrefrence_constance.dart';
@@ -18,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     checkUserLogin();
-    var duration = const Duration(seconds: 2);
+    var duration = const Duration(seconds: 3);
     Timer(duration, () {
       _navigateScreen();
     });
@@ -28,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   checkUserLogin() async {
     userLoginStatus =
-    await PreferenceHelper.getBool(PreferenceConstant.userLoginStatus);
+        await PreferenceHelper.getBool(PreferenceConstant.userLoginStatus);
   }
 
   _navigateScreen() {
@@ -45,12 +46,15 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
-            Text("Welcome ")
-            // Lottie.asset(
-            //   'assets/splashScreen.json',
-            //   fit: BoxFit.fitHeight,
-            // ),
+            TweenAnimationBuilder(
+                tween: Tween<double>(begin: 0, end: 1),
+                duration: const Duration(seconds: 3),
+                builder: (context, value, child) {
+                  return Transform.scale(
+                    scale: value,
+                    child: Image.asset('assets/splash_scree.png'),
+                  );
+                })
           ],
         ),
       ),

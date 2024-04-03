@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../model/product_model.dart';
 
@@ -15,22 +16,91 @@ class _ProductDetailsState extends State<ProductDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: const Color(0xFF11114e),
         leading: InkWell(
             onTap: () {
               Navigator.pop(context);
             },
             child: const Icon(Icons.arrow_back_ios)),
-        title: const Text('Product Details'),
+        title: const Text(
+          'Product Details',
+          style: TextStyle(
+              fontSize: 18, color: Colors.white, fontWeight: FontWeight.w800),
+        ),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Text(widget.argument!.product!.productName),
-            SizedBox(
-                height: 300,
-                width: 300,
-                child: Image.network(widget.argument!.product!.qrPath)),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  Container(
+                      height: 150,
+                      width: 150,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/box.png')))),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Name: ${widget.argument!.product!.productName}',
+                        style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Quantity: ${widget.argument!.product!.measurement.toString()}',
+                        style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Price: ${widget.argument!.product!.price.toString()}',
+                        style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                          'CreatedOn: ${DateFormat("dd-MM-yy h:mm a").format(widget.argument!.product!.createdOn.toDate())}',
+                          style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis)
+                    ],
+                  ))
+                ],
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                  height: 300,
+                  width: 300,
+                  child: Image.network(widget.argument!.product!.qrPath)),
+            ],
+          ),
         ),
       ),
     );

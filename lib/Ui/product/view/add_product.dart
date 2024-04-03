@@ -42,21 +42,34 @@ class _AddProductState extends State<AddProduct> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: const Color(0xFF11114e),
         leading: InkWell(
             onTap: () {
               Navigator.pop(context);
             },
             child: const Icon(Icons.arrow_back_ios)),
-        title: const Text('Add Product'),
+        title: const Text(
+          'Add Product',
+          style: TextStyle(
+              fontSize: 18, color: Colors.white, fontWeight: FontWeight.w800),
+        ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Expanded(
-                child: Form(
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                    height: 150,
+                    width: 150,
+                    child: Image.asset('assets/box.png')),
+                SizedBox(
+                  height: 20,
+                ),
+                Form(
                     key: _formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -97,7 +110,7 @@ class _AddProductState extends State<AddProduct> {
                           },
                         ),
                         const SizedBox(
-                          height: 25,
+                          height: 20,
                         ),
                         Visibility(
                           visible: isQrShow ? false : true,
@@ -119,8 +132,8 @@ class _AddProductState extends State<AddProduct> {
                         Visibility(
                           visible: isQrShow,
                           child: SizedBox(
-                            height: 200,
-                            width: 200,
+                            height: 150,
+                            width: 150,
                             child: Screenshot(
                               controller: _screenshotController,
                               child: QrImage(
@@ -133,27 +146,30 @@ class _AddProductState extends State<AddProduct> {
                         ),
                       ],
                     )),
-              ),
-              Visibility(
-                visible: isQrShow,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: CustomButton(
-                    btnText: 'Add Product',
-                    btnClick: () async {
-                      ProductModel product = ProductModel(
-                          productName: _productName.text,
-                          measurement:
-                              int.tryParse(_productMeasurement.text) ?? 1,
-                          price: int.tryParse(_productPrice.text) ?? 100,
-                          qrPath: grImgUrl,
-                          createdOn: Timestamp.now());
-                      _dataBaseServices.addProduct(product);
-                    },
-                  ),
+                const SizedBox(
+                  height: 20,
                 ),
-              )
-            ],
+                Visibility(
+                  visible: isQrShow,
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: CustomButton(
+                      btnText: 'Add Product',
+                      btnClick: () async {
+                        ProductModel product = ProductModel(
+                            productName: _productName.text,
+                            measurement:
+                                int.tryParse(_productMeasurement.text) ?? 1,
+                            price: int.tryParse(_productPrice.text) ?? 100,
+                            qrPath: grImgUrl,
+                            createdOn: Timestamp.now());
+                        _dataBaseServices.addProduct(product);
+                      },
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

@@ -5,7 +5,7 @@ import '../../../Constance/sharedPrefrence_constance.dart';
 import '../../../custom_widget/custom_widget.dart';
 import '../../../shared_prefrance/shared_prefrance_helper.dart';
 
-class UserAuthModel{
+class UserAuthModel {
   ///Auth
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -24,21 +24,15 @@ class UserAuthModel{
   ///login user
   Future<User?> loginUser(String userEmail, password) async {
     try {
-      //btnLoading = true;
       print('userEmail::$userEmail:::$password');
       UserCredential credential = await _auth.signInWithEmailAndPassword(
           email: userEmail, password: password);
-     // btnLoading = false;
-
-     //  if (kDebugMode) {
-     //    print('credential::${credential.user!.uid}');
-     //  }
       PreferenceHelper.setBool(PreferenceConstant.userLoginStatus, true);
       PreferenceHelper.setString(
-          PreferenceConstant.userLoginId, credential.user!.uid);
+          PreferenceConstant.userLoginId, credential.user!.email!);
       return credential.user;
     } on FirebaseAuthException catch (e) {
-    //  loginErrorMsg = e.message!;
+      //  loginErrorMsg = e.message!;
       showLog(e.code!);
     }
     return null;

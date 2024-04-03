@@ -15,7 +15,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("welcome"),
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: const Color(0xFF11114e),
+        centerTitle: true,
+        title: const Text(
+          "Welcome",
+          style: TextStyle(
+              fontSize: 18, color: Colors.white, fontWeight: FontWeight.w800),
+        ),
       ),
       drawer: Drawer(
         child: SafeArea(
@@ -28,16 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 CustomButton(
                   btnText: 'LogOut',
-                  btnClick: () async {
-                    // bool status = await model.logOut();
-                    // if (status && mounted) {
-                    //   showSnackBarNew(context, "LogOut Successfully");
-                    //   Navigator.pushReplacementNamed(
-                    //       context, RoutePaths.loginUser);
-                    // } else {
-                    //   showSnackBarNew(context, "LogOut Failed");
-                    // }
-                  },
+                  btnClick: () async {},
                 )
               ],
             ),
@@ -46,10 +44,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: const ProductView(),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xFF11114e),
         onPressed: () async {
           Navigator.pushNamed(context, RoutePaths.addProduct);
         },
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
     );
   }
