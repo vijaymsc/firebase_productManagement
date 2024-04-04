@@ -1,11 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:product_management/Route_page/route_constant.dart';
 
 import '../Ui/home_screen.dart';
 import '../Ui/product/view/add_product.dart';
 import '../Ui/product/view/product_details.dart';
+import '../Ui/product/view/product_view.dart';
 import '../Ui/user_auth/view/register_view.dart';
+import '../Ui/user_auth/view/setPin_view.dart';
 import '../Ui/user_auth/view/user_login.dart';
 import '../custom_widget/custom_widget.dart';
 
@@ -24,6 +25,12 @@ abstract class RouterViews {
 
         case RoutePaths.addProduct:
           return MaterialPageRoute(builder: (_) => const AddProduct());
+
+        case RoutePaths.userPinLogin:
+          return MaterialPageRoute(builder: (_) => const UserPinLogin());
+
+        case RoutePaths.productView:
+          return MaterialPageRoute(builder: (_) => const ProductView());
 
         case RoutePaths.productDetails:
           return MaterialPageRoute(

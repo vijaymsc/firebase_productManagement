@@ -14,4 +14,9 @@ class FailedState extends AuthState {
   FailedState({required this.errorMessage});
 }
 
+class AuthPinSuccessSate extends AuthState {
+  String successStatus;
+  AuthPinSuccessSate({required this.successStatus});
+}
+
 class LoadingState extends AuthState {}

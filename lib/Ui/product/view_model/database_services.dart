@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../../../custom_widget/custom_widget.dart';
 import '../model/product_model.dart';
 
 const String product_ref = 'product';
@@ -23,4 +21,5 @@ class DataBaseServices {
   void addProduct(ProductModel product) {
     _productRef.add(product);
   }
+
 }

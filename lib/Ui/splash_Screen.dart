@@ -2,10 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:product_management/Ui/user_auth/view/setPin_view.dart';
 import 'package:product_management/Ui/user_auth/view/user_login.dart';
-
-import '../Constance/sharedPrefrence_constance.dart';
+import '../shared_prefrance/shared_preference_const.dart';
 import '../shared_prefrance/shared_prefrance_helper.dart';
-import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -33,9 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _navigateScreen() {
-    print('userLoginStatus$userLoginStatus');
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (_) => userLoginStatus ? const HomeScreen() : const LoginUser(),
+      builder: (_) => userLoginStatus ? const UserPinLogin() : const LoginUser(),
     ));
   }
 

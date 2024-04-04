@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../Constance/common_constance.dart';
 import '../../../Route_page/route_constant.dart';
 import '../../../custom_widget/custom_widget.dart';
 import '../bloc_model/auth_bloc.dart';
@@ -42,6 +42,9 @@ class _LoginUserState extends State<LoginUser> {
             Navigator.pushReplacementNamed(context, RoutePaths.homeScreen);
           }
         }, builder: (context, state) {
+          if (state is LoadingState) {
+            return Center(child: CircularProgressIndicator.adaptive());
+          }
           return Center(
             child: SingleChildScrollView(
               child: Padding(
@@ -145,7 +148,8 @@ class _LoginUserState extends State<LoginUser> {
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
                                         decoration: TextDecoration.underline,
-                                        color: Color(0xFF11114e)),
+                                        color:
+                                            Color(CommonConstance.background)),
                                   ),
                                 )
                               ],

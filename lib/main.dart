@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'Route_page/route_setup.dart';
+import 'Ui/product/model/bloc_model/product_bloc.dart';
 import 'Ui/splash_Screen.dart';
 import 'Ui/user_auth/bloc_model/auth_bloc.dart';
 import 'firebase_options.dart';
@@ -26,7 +27,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => AuthBloc())],
+      providers: [
+        BlocProvider(create: (context) => AuthBloc()),
+        BlocProvider(create: (context) => ProductBloc())
+      ],
       child: MaterialApp(
         navigatorKey: navigationKey,
         navigatorObservers: [routeObserver],

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../Route_page/route_constant.dart';
 import '../../../custom_widget/custom_widget.dart';
-import '../../home_screen.dart';
 import '../bloc_model/auth_bloc.dart';
 import '../bloc_model/auth_event.dart';
 import '../bloc_model/auth_state.dart';
@@ -23,15 +22,6 @@ class _RegisterViewState extends State<RegisterView> {
       TextEditingController();
 
   @override
-  void deactivate() {
-    _userEmailController.dispose();
-    _userPasswordController.dispose();
-    _userRePasswordController.dispose();
-    // TODO: implement deactivate
-    super.deactivate();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
@@ -40,12 +30,12 @@ class _RegisterViewState extends State<RegisterView> {
               .showSnackBar(SnackBar(content: Text(state.errorMessage)));
         }
         if (state is SuccessSate) {
-          Navigator.pushReplacementNamed(context, RoutePaths.homeScreen);
+          Navigator.pushReplacementNamed(context, RoutePaths.userPinLogin);
         }
       }, builder: (context, state) {
-        // if (state is FailedState) {
-        //   return Text(state.errorMessage);
-        // }
+        if (state is LoadingState) {
+          return Center(child: CircularProgressIndicator.adaptive());
+        }
         return Center(
           child: SingleChildScrollView(
             child: Padding(
@@ -130,7 +120,6 @@ class _RegisterViewState extends State<RegisterView> {
                           ),
                           CustomButton(
                             btnText: 'Register',
-                            isLoading: state is LoadingState ? true : false,
                             btnClick: () async {
                               if (_formKey.currentState!.validate()) {
                                 context.read<AuthBloc>().add(RegisterEvent(
@@ -147,8 +136,9 @@ class _RegisterViewState extends State<RegisterView> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(
-                                      context, RoutePaths.loginUser);
+                                  // Navigator.pushReplacementNamed(
+                                  //     context, RoutePaths.loginUser);
+                                  Navigator.pop(context);
                                 },
                                 child: const Text(
                                   'Already have account?',

@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../Constance/common_constance.dart';
+
 ///custom TextFormField
 class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
@@ -85,10 +87,9 @@ class CustomButton extends StatefulWidget {
     this.buttonHeight = 50,
     this.buttonWidth = double.infinity,
     this.borderRadius = 10,
-    this.btnColor = 0xFF11114e,
+    this.btnColor = CommonConstance.background,
     required this.btnText,
     this.textColor = Colors.white,
-    this.isLoading = false,
     this.fontSize = 20,
     required this.btnClick,
   });
@@ -97,7 +98,6 @@ class CustomButton extends StatefulWidget {
   final int btnColor;
   final String btnText;
   final Color textColor;
-  final bool isLoading;
   final Function btnClick;
 
   @override
@@ -105,21 +105,11 @@ class CustomButton extends StatefulWidget {
 }
 
 class _CustomButtonState extends State<CustomButton> {
-  @override
-  void didUpdateWidget(covariant CustomButton oldWidget) {
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
-    print('didUpdateWidget');
-    if (widget.isLoading != oldWidget.isLoading) {
-      print('didUpdateWidget:::${widget.isLoading}');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        print(widget.isLoading);
         widget.btnClick();
       },
       child: Container(
@@ -143,18 +133,33 @@ class _CustomButtonState extends State<CustomButton> {
             const SizedBox(
               width: 20,
             ),
-            // if (Provider.of<FirebaseProvide>(context, listen: true).btnLoading)
-            //   SizedBox(
-            //       width: 30,
-            //       height: 30,
-            //       child: CircularProgressIndicator(
-            //         color: widget.textColor,
-            //       ))
           ],
         ),
       ),
     );
   }
+}
+
+///Pin Input Field Decoration
+InputDecoration userPinInputBox() {
+  return InputDecoration(
+    filled: true,
+    fillColor: Colors.white,
+    contentPadding:
+        const EdgeInsets.fromLTRB(5.0 * 2, 5.0 * 2, 5.0 * 2, 5.0 * 2),
+    enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(width: 2, color: Color(CommonConstance.background)),
+        borderRadius: BorderRadius.circular(4)),
+    focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
+          width: 2,
+          color: Color(CommonConstance.background),
+        ),
+        borderRadius: BorderRadius.circular(4)),
+    border: OutlineInputBorder(
+        borderSide: const BorderSide(width: 2, color: Colors.black),
+        borderRadius: BorderRadius.circular(4)),
+  );
 }
 
 showSnackBarNew(BuildContext context, String message) {
@@ -170,6 +175,7 @@ showLog(String message) {
   }
 }
 
+/// show SnackBar
 customShowSnackBar(BuildContext context, {String message = ""}) {
   ScaffoldMessenger.of(context).showSnackBar(showSnackBar(message));
 }

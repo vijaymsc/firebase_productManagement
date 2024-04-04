@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../Constance/common_constance.dart';
 import '../model/product_model.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -17,7 +18,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: const Color(0xFF11114e),
+        backgroundColor: const Color(CommonConstance.background),
         leading: InkWell(
             onTap: () {
               Navigator.pop(context);
@@ -95,10 +96,15 @@ class _ProductDetailsState extends State<ProductDetails> {
               const SizedBox(
                 height: 30,
               ),
-              SizedBox(
-                  height: 300,
-                  width: 300,
-                  child: Image.network(widget.argument!.product!.qrPath)),
+              Container(
+                height: 300,
+                width: 300,
+                child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/placeholder_qr.png',
+                  image: widget.argument!.product!.qrPath,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ],
           ),
         ),
