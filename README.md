@@ -48,6 +48,7 @@ A few resources to get you started if this is your first Flutter project:
    flutter_bloc package
 
 - Qr code Generate and save qr in Firebase Storage
+- qr save product name and you check qr code scan qr in google lence
   qr_flutter package
 
 - save Qr code as image
